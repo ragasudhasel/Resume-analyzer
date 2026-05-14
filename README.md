@@ -1,12 +1,3 @@
----
-title: HireIQ - AI Resume Screener
-emoji: 📑
-colorFrom: indigo
-colorTo: blue
-sdk: docker
-pinned: false
----
-
 # HireIQ - Autonomous AI Resume Screening Pipeline
 
 HireIQ is a robust, production-ready AI Resume Screener that autonomously parses, categorizes, and evaluates hundreds of applicant resumes against specific job criteria using native LLM vision capabilities. 
@@ -67,22 +58,6 @@ To deal with rate limits and temporary outages:
    \`\`\`bash
    npm run dev
    \`\`\`
-
-
-## 🚀 Deployment to Hugging Face Spaces
-
-1. **Create a new Space:**
-   - Go to [huggingface.co/new-space](https://huggingface.co/new-space)
-   - Choose **Docker** as the SDK.
-
-2. **Push the code:**
-   ```bash
-   git remote add hf https://huggingface.co/spaces/YOUR_USERNAME/YOUR_SPACE_NAME
-   git push -f hf main
-   ```
-
-3. **Add Secrets:**
-   - In your Space settings, add your `VITE_GEMINI_API_KEY` as a **Secret**.
 
 ---
 
