@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import useStore from '../store/useStore';
 import { generateId, extractTextFromFile, parseResumeData, fileToBase64 } from '../utils/resumeUtils';
 import { generateDemoResumes } from '../utils/demoData';
-import { Upload, Folder, Link, CheckCircle, AlertCircle, Loader, X, Pencil, Zap, BarChart2, FileText, Image } from 'lucide-react';
+import { Upload, Folder, Link, CheckCircle, AlertCircle, Loader, X, Pencil, Zap } from 'lucide-react';
 
 const TITLE_OPTIONS=['Full Stack Developer','Frontend Developer','Backend Developer','Software Engineer','Data Scientist','Data Analyst','ML Engineer','DevOps Engineer','Cloud Engineer','Mobile Developer','Android Developer','iOS Developer','Flutter Developer','UX Designer','UI/UX Designer','Product Manager','Business Analyst','QA Engineer','Cybersecurity Engineer','Blockchain Developer','Game Developer','Embedded Engineer','HR Specialist','Marketing Manager','General'];
 
@@ -71,26 +71,16 @@ export default function UploadView() {
     alert('Drive link saved (full auto-import requires server-side Google Drive API with OAuth).');
   };
 
-  const loadDemo = () => { const d=generateDemoResumes(); addResumes(d); setResults(d); setStats({total:d.length,parsed:d.length,failed:0}); };
   const updateTitle=(id,title)=>setResults(prev=>prev.map(r=>r.id===id?{...r,jobTitle:title}:r));
   const success=results.filter(r=>r.status!=='error');
-  const failed=results.filter(r=>r.status==='error');
 
   return (
     <div style={{maxWidth:900,margin:'0 auto'}}>
       <div style={{marginBottom:24}}>
         <h1 style={{fontSize:28,fontWeight:800,marginBottom:6}}>Upload Resumes</h1>
-        <p style={{color:'var(--text-secondary)',fontSize:14}}>Job titles are <strong style={{color:'var(--accent-light)'}}>auto-extracted</strong> from each resume's career summary · Correct any wrong detections below</p>
       </div>
 
-      {/* Demo Button */}
-      <div style={{marginBottom:20,padding:'16px 20px',borderRadius:'var(--radius-lg)',background:'linear-gradient(135deg,rgba(99,102,241,0.1),rgba(168,85,247,0.05))',border:'1px solid rgba(99,102,241,0.2)',display:'flex',alignItems:'center',gap:16}}>
-        <div style={{flex:1}}>
-          <div style={{fontWeight:700,marginBottom:3}}>🧪 Load Demo Resumes</div>
-          <div style={{fontSize:13,color:'var(--text-secondary)'}}>8 realistic resumes: Full Stack Dev, Data Scientist, DevOps, ML Engineer, UX Designer, QA, Android Dev, Backend Dev</div>
-        </div>
-        <button className="btn btn-primary" onClick={loadDemo} style={{background:'linear-gradient(135deg,#a855f7,#6366f1)',whiteSpace:'nowrap'}}><Zap size={15}/> Load Demo</button>
-      </div>
+      {/* Live Dashboard */}
 
       {/* Live Dashboard */}
       {(processing || stats.total>0) && (
@@ -181,7 +171,6 @@ export default function UploadView() {
                       <div style={{flex:1,minWidth:0}}>
                         <div style={{fontWeight:700,fontSize:15,marginBottom:6}}>{r.name||r.fileName}</div>
                         <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:8}}>
-                          <span style={{fontSize:11,color:'var(--text-muted)',fontWeight:600}}>AUTO-DETECTED:</span>
                           {editId===r.id
                             ? <select defaultValue={r.jobTitle} onChange={e=>{updateTitle(r.id,e.target.value);setEditId(null);}} style={{padding:'4px 8px',fontSize:13,width:'auto',borderColor:'var(--accent)'}}>
                                 {TITLE_OPTIONS.map(t=><option key={t} value={t}>{t}</option>)}
