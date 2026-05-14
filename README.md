@@ -60,5 +60,3 @@ To deal with rate limits and temporary outages:
    \`\`\`
 
 ---
-
-*This application was architected for strict data extraction reliability, leveraging AI for semantic understanding while utilizing deterministic programming to enforce business logic constraints.*
