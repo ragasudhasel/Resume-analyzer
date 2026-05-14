@@ -1,11 +1,13 @@
-# Use a lightweight Nginx image
+# Build Stage
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Production Stage
 FROM nginx:alpine
-
-# Copy the built files from the dist folder to the Nginx html directory
-COPY dist /usr/share/nginx/html
-
-# Expose port 80 (Hugging Face Spaces will automatically route traffic)
+COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
-
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
