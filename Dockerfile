@@ -8,6 +8,13 @@ RUN npm run build
 
 # Production Stage
 FROM nginx:alpine
+
+# Configure Nginx to listen on port 7860 (Hugging Face standard)
+RUN sed -i 's/listen\(.*\)80;/listen 7860;/' /etc/nginx/conf.d/default.conf
+
 COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
+
+# Expose port 7860
+EXPOSE 7860
+
 CMD ["nginx", "-g", "daemon off;"]
